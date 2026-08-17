@@ -1,90 +1,93 @@
-This is a sample theme for Obsidian ([https://obsidian.md](https://obsidian.md/)).
+# Mishka — тема Obsidian «Мишка на сервере»
 
-## First time creating a theme?
+Тема, которая не «похожа» на [`mishka-ds`](https://github.com/jtprogru/mishka-ds), а выводится из неё. Ни одного хекса в исходниках: каждый цвет, кегль, отступ и радиус приходит из `tokens.json` дизайн-системы. Расхождение с блогом, резюме и слайдами возможно только вместе с расхождением токенов.
 
-### Quick start
+Палитра — catppuccin: Latte на свету, Macchiato в темноте. Акцент один, Sapphire.
 
-<img width="244" alt="Pasted image 20220822135601" src="https://user-images.githubusercontent.com/693981/186000386-4f4da987-fcaf-4aa5-aed4-e34b5901255d.png">
+## Установка
 
-First, select **Use this template** to create a copy of this repository under your GitHub profile. Then, clone your new repository to your computer.
+Пока тема не в каталоге сообщества — вручную:
 
-Once you have the repository locally on your computer, there are a couple of placeholder fields you'll need to fill in.
-
-1. Inside the `manifest.json` file, update the placeholder fields to describe your theme. For example:
-
-  ```json
-  {
-    "name": "Moonstone",
-    "author": "Your Name",
-    "version": "0.0.0",
-    "minAppVersion": "1.10.6"
-  }
-  ```
-
-   - **name** is the name of your theme.
-   - **author** is your name.
-   - **version** is the version of your theme.
-   - **minAppVersion** should only be changed as you add new CSS from Obsidian updates.
-
-After you have those fields configured, all that's left to do is add your styles! All of your CSS needs to be inside the file `theme.css` as a part of your [release](#releasing-versions).
-
-For a deeper walkthrough, see the official [Build a theme](https://docs.obsidian.md/Themes/App+themes/Build+a+theme) tutorial.
-
-## Preparing your theme for the community directory
-
-Before you can submit your theme to the [community directory](https://community.obsidian.md/), there are a few things you'll need to prepare.
-
-Review the [Theme guidelines](https://docs.obsidian.md/Themes/App+themes/Theme+guidelines) for best practices, such as using CSS variables, avoiding `!important`, and keeping assets local. Themes that don't follow them are more likely to break on future Obsidian versions or get flagged during review.
-
-This template already includes [`stylelint-config-obsidianmd`](https://github.com/obsidianmd/stylelint-config), which enforces the same CSS rules used during theme review. Run `npm install` once, then `npm run lint` to check `theme.css` against them. This also runs automatically on every pull request via the [lint workflow](.github/workflows/lint.yml).
-
-### Add a screenshot thumbnail
-
-Inside the repository, include a screenshot thumbnail of your theme. We recommend storing it in a `screenshots` folder at the root of your repository, for example `screenshots/screenshot.png`. This image will be used for the small preview in the theme list.
-
-Your screenshot file should be `16:9` aspect ratio.
-The recommended size is 512x288.
-
-### Releasing versions
-
-Themes support [GitHub Releases](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository), introduced in v0.16 of Obsidian. This lets you specify which versions of your theme are compatible with which versions of Obsidian.
-
-This repository already includes a [GitHub Actions workflow](.github/workflows/release.yml) that automates this. Pushing a tag matching your `manifest.json` version creates a draft release with `manifest.json` and `theme.css` attached, which you can then review and publish. See [Release your theme with GitHub Actions](https://docs.obsidian.md/Themes/App+themes/Release+your+theme+with+GitHub+Actions) for the full walkthrough.
-
-Before you push a tag, make sure `versions.json` is up to date. This file maps your theme's version to the minimum Obsidian version it's compatible with:
-
-```json
-{
-  "1.0.0": "1.10.6"
-}
+```bash
+git clone https://github.com/jtprogru/obsidian-mishka.git
+cd obsidian-mishka
+make install
+make deploy-vault VAULT="$HOME/путь/к/хранилищу"
 ```
 
-For the initial release of your theme, you shouldn't need to make any changes to this file. When you release a new version, add an entry for it:
+Дальше в Obsidian: «Настройки» → «Оформление» → «Темы» → Mishka.
 
-```json
-{
-  "1.0.0": "1.10.6",
-  "1.0.1": "1.10.6"
-}
+Из релиза — `theme.css` и `manifest.json` кладутся в `<хранилище>/.obsidian/themes/Mishka/`.
+
+## Что тема не переопределяет
+
+Акцент и шрифт из «Оформления» выигрывают у темы: Obsidian пишет их инлайном в `body`, и это правильно — пользовательская настройка должна быть сильнее темы. Значит **полное соответствие дизайн-системе гарантируется на настройках по умолчанию**. Если в пикере акцента выбран свой цвет, Sapphire не вернётся, пока его оттуда не убрать.
+
+Плагин со своим CSS может рисовать мимо переменных. Тема отвечает за ядро Obsidian.
+
+## Настройки Style Settings
+
+Если установлен плагин Style Settings, тема отдаёт четыре переключателя: скругления, плотность интерфейса, подчёркивание ссылок, направляющие вложенности. Каждый меняет одно состояние на другое, и оба состояния — внутри дизайн-системы. Без плагина тема работает как есть.
+
+## Разработка
+
+```bash
+make install   # зависимости + submodule с дизайн-системой
+make build     # сборка theme.css из src/ и токенов + lint
+make check     # все проверки, включая дрейф собранного
+make deploy    # положить тему в тестовое хранилище vault/
 ```
 
-The "key" is your theme's version, and the "value" is the minimum version of Obsidian that version is compatible with. If a new version of your theme only works with an Insider build of Obsidian, set this value accordingly, so users on older versions of Obsidian won't be prompted to update to a version that won't work for them.
+`theme.css` собирается и **коммитится**: Obsidian ждёт его в корне репозитория. Правится `src/`, не `theme.css` — `make check` это ловит.
 
-## Submit your theme for review
+### Как устроено
 
-To have your theme included in the Theme Gallery, you'll submit it through the Obsidian Community directory. Make sure you've [added a screenshot](#add-a-screenshot-thumbnail) and [published a release](#releasing-versions) first, since the submission form needs both.
+Obsidian грузит один файл и не разворачивает `@import`, поэтому тема пишется по кускам в `src/` и склеивается в `theme.css` лексикографически по имени. Числовой префикс говорит, кто автор куска:
 
-You'll also need a `LICENSE` file in the root of your repository, which isn't included in this template. See [Choose a License](https://choosealicense.com/) if you're not sure which one to use. See the official [Submit your theme](https://docs.obsidian.md/Themes/App+themes/Submit+your+theme) guide for more detail.
+| Кусок | Откуда |
+|---|---|
+| `00-header.css` | руками — баннер, лицензионные уведомления, `@settings` |
+| `01-fonts.css` | генератор — `@font-face` с сабсетами в `data:` URI |
+| `02-palette.css` | генератор — токены системы, палитра, повышенный контраст, печать |
+| `03-mapping.css` | генератор — роли системы в семантику Obsidian |
+| `04-code.css` | генератор — подсветка синтаксиса |
+| `05-callouts.css` | генератор — все типы callout на 5 ролей системы |
+| `10-typography.css` | руками — трекинг, регистр h6, черта под h2 |
+| `20-workspace.css` | руками — оболочка (почти вся приезжает мостом) |
+| `40-editor.css` | руками — цитаты, код, таблицы, списки, теги, ссылки, embeds |
+| `60-motion.css` | руками — `prefers-reduced-motion` |
+| `70-print.css` | руками — печать и экспорт в PDF |
+| `80-settings.css` | руками — что включают переключатели Style Settings |
 
-1. Go to [community.obsidian.md](https://community.obsidian.md) and sign in with your Obsidian account.
-2. Link your GitHub account to your profile. This lets the directory verify that you own the repository you're submitting.
-3. In the sidebar, select **Themes**, then select **New theme**.
-4. Fill out the submission form:
-   - **GitHub repository URL** is your repository's URL, for example `https://github.com/your-username/your-repo-name`.
-   - **Owner** is who will own and maintain this entry, and doesn't have to match the repository's GitHub owner.
-   - **Screenshot path** is the path to your screenshot, relative to the repository root, for example `screenshots/screenshot.png`.
-   - For **Supported modes**, select Dark and/or Light depending on which your theme supports.
-5. Read and agree to the [Developer Policies](https://docs.obsidian.md/Developer+policies), and confirm that you'll continue to support your theme (or remove/transfer it if you can no longer provide support).
-6. Select **Submit**.
+```
+vendor/mishka-ds/tokens/tokens.json → генераторы → src/0x-*.css
+                                                        ↓
+              src/*.css → склейка → theme.css → lint → contrast → accent
+```
 
-The directory processes the `manifest.json` at the HEAD of your repository's default branch, so make sure it's accurate and committed before submitting. Obsidian downloads `manifest.json` and `theme.css` from the GitHub release whose tag matches the version in your manifest, which is why a published release is required.
+Проверки считают по собранному `theme.css`, а не по токенам: проверяться должно то, что увидит пользователь. `check-contrast.mjs` для этого разворачивает переменные сам — вместе с `hsl()` из тройки акцента и `color-mix(in oklch, …)` под callout.
+
+### Обновление дизайн-системы
+
+```bash
+git -C vendor/mishka-ds fetch --tags
+git -C vendor/mishka-ds checkout <ревизия>
+make build
+git add vendor/mishka-ds theme.css src
+```
+
+Ни один шаг не редактирует значения руками. У `mishka-ds` пока нет тегов, поэтому submodule пинится на коммит; когда теги появятся — на тег.
+
+### Тестовое хранилище
+
+`vault/` в репозитории — заметки, покрывающие каждую поверхность темы: все типы callout, код на шести языках, таблицы, списки задач, properties, сноски, теги, embeds, математика, mermaid, длинная проза на кириллице и латинице. Рабочие хранилища лежат в iCloud и синхронизируются, поэтому тема катится туда отдельной целью и копией, а не симлинком.
+
+## Чего пока нет
+
+- **Mermaid.** Схемы Obsidian рисует своим mermaid, конфиг темы туда не передать, а в тёмной теме ядро инвертирует готовый SVG фильтром целиком. Красить его по классам библиотеки можно, но только сняв фильтр, и тогда непокрытые типы диаграмм станут хуже, а не лучше. Гарнитура при этом уже брендовая: `--font-mermaid` в ядре выведен из `--font-text`.
+- **Мобильный.** `.is-mobile` и `.is-phone` отдельно не разбирались.
+- **Чужие плагины.** Dataview, Tasks, Kanban, Excalidraw — отдельный файл, когда до них дойдут руки.
+
+## Лицензии
+
+Код и стили — PolyForm Noncommercial 1.0.0. Имя и идентичность — все права защищены. Вшитые шрифты — SIL OFL 1.1. Подробности и тексты — [`LICENSE`](LICENSE) и [`LICENSES/`](LICENSES).
