@@ -47,6 +47,7 @@ const GENERATORS = [
 	['gen-palette.mjs', 'src/02-palette.css'],
 	['gen-mapping.mjs', 'src/03-mapping.css'],
 	['gen-code.mjs', 'src/04-code.css'],
+	['gen-callouts.mjs', 'src/05-callouts.css'],
 ];
 
 const ctx = { tokens, root, r, ds };

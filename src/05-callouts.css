@@ -1,0 +1,66 @@
+/* СГЕНЕРИРОВАНО scripts/gen-callouts.mjs — не править руками.
+
+   Тринадцать типов Obsidian на пять семантических ролей системы плюс тихий
+   quote. Алиасы ядро сводит к каноническим типам само. */
+
+.theme-light,
+.theme-dark {
+	--callout-default:   var(--c-note);            /* без типа */
+	--callout-info:      var(--c-note);            /* info */
+	--callout-todo:      var(--c-note);            /* todo */
+	--callout-summary:   var(--accent);            /* summary, abstract, tldr */
+	--callout-tip:       var(--c-tip);             /* tip, hint */
+	--callout-success:   var(--c-tip);             /* success, check, done */
+	--callout-important: var(--c-important);       /* important */
+	--callout-question:  var(--c-important);       /* question, help, faq */
+	--callout-example:   var(--c-important);       /* example */
+	--callout-warning:   var(--c-warn);            /* warning, caution, attention */
+	--callout-fail:      var(--c-danger);          /* fail, failure, missing */
+	--callout-error:     var(--c-danger);          /* error, danger */
+	--callout-bug:       var(--c-danger);          /* bug */
+	--callout-quote:     var(--fg-muted);          /* quote, cite */
+}
+
+/* Оформление блока — как .callout в системе.
+
+   Ядро красит подложку как color-mix(…, var(--callout-color) 10%, transparent)
+   и накладывает mix-blend-mode. Система смешивает тот же процент в --bg-elev
+   непрозрачно: callout там читается как карточка, а не как подсветка на
+   странице. Берём вариант системы, режим наложения гасим — иначе он размажет
+   и текст внутри.
+
+   Рамка в ядре нулевой толщины. Это не та полоска, которую система убрала:
+   левой акцентной полоски у callout в Obsidian нет вовсе, --callout-border-width
+   задаёт рамку целиком. В системе она есть — 1px в цвете типа на 28%
+   прозрачности, и без неё блок разваливается на светлой теме, где тинт 10%
+   почти не виден.
+
+   Паддинг в ядре асимметричный: слева --size-4-6 против --size-4-3 с трёх
+   других сторон, место под иконку. Иконка в системе стоит в потоке, поэтому
+   выравниваем. */
+
+.theme-light,
+.theme-dark {
+	--callout-radius: var(--radius-md);
+	--callout-padding: var(--gap-md);
+	--callout-border-width: 1px;
+	--callout-border-opacity: 0.28;
+	--callout-blend-mode: normal;
+	--callout-title-weight: var(--font-bold);
+
+	/* Заголовок — цветом обычного текста, а не цветом типа.
+
+	   Это система, и это же снимает старую проблему: яркие тона Latte держат
+	   подложку, но как текст валят AA, из-за чего в токенах и появилась
+	   отдельная ступень --c-*-text. Заголовку она не нужна — тип несёт
+	   иконка и рамка, а цвет остаётся вторым различителем, не единственным.
+
+	   Ядро красит .callout-title в --callout-color, а .callout-title-inner —
+	   в --callout-title-color, и текст заголовка лежит именно во втором.
+	   Значит хватает переменной, правило не нужно. */
+	--callout-title-color: var(--fg);
+}
+
+.callout {
+	background-color: color-mix(in oklch, var(--callout-color) 10%, var(--bg-elev));
+}
