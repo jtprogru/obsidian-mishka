@@ -1,0 +1,123 @@
+/* ============================================================================
+   Редактор: цитаты, код, таблицы, списки, ссылки, теги, embeds.
+
+   Всё, что выражается переменной, задано переменной. Правила здесь только там,
+   где переменной нет или где ядро и система расходятся по существу.
+   ============================================================================ */
+
+.theme-light,
+.theme-dark {
+	/* Цитата. Ядро рисует ровно ту вертикальную полоску, которую система
+	   убрала из себя намеренно: --blockquote-border-thickness 2px плюс
+	   border-inline-start. Гасим толщину в ноль и повторяем оформление
+	   .md-content blockquote из системы — заливка, радиус, приглушённый цвет,
+	   курсив.
+
+	   --blockquote-style без «font» — не опечатка: живой просмотр читает
+	   именно это имя, а объявляет ядро только --blockquote-font-style.
+	   Необъявленная переменная делает font-style невалидным, и в правке
+	   цитата остаётся прямой, а в чтении курсивной. Объявляем обе. */
+	--blockquote-border-thickness: 0;
+	--blockquote-color: var(--fg-muted);
+	--blockquote-background-color: var(--bg-sunken);
+	--blockquote-font-style: italic;
+	--blockquote-style: italic;
+
+	/* Код. Рамка и радиус — как у блока кода в системе. Инлайновому радиус
+	   поменьше, но это уже правило: переменная в ядре одна на оба. */
+	--code-border-width: 1px;
+	--code-border-color: var(--border);
+	--code-radius: var(--radius-md);
+
+	/* Таблицы. Шапка на утопленной подложке, чётные строки — вполовину
+	   слабее, кегль на ступень ниже текста: так в системе. */
+	--table-header-background: var(--bg-sunken);
+	--table-header-weight: var(--font-bold);
+	--table-row-alt-background: color-mix(in oklch, var(--bg-sunken) 50%, transparent);
+	--table-row-background-hover: color-mix(in oklch, var(--bg-sunken) 50%, transparent);
+	--table-text-size: var(--font-smaller);
+
+	/* Списки. --list-spacing ядро кладёт и в padding-top, и в padding-bottom,
+	   поэтому половина от --gap-xs даёт ровно тот просвет между пунктами,
+	   который в системе задан margin-block. */
+	--list-spacing: calc(var(--gap-xs) / 2);
+	--indentation-guide-color: var(--border);
+	--indentation-guide-color-active: var(--border-strong);
+
+	/* Ссылки. Подчёркивание в 1px с отбивкой — как в системе; при наведении
+	   в системе оно утолщается до 2px, для этого ниже отдельное правило. */
+	--link-decoration-thickness: 1px;
+
+	/* Теги. Ядро красит их акцентом на акцентной подложке — тег получается
+	   громче ссылки, хотя ведёт туда же. В системе .tag тихий: утопленная
+	   подложка, приглушённый текст, а акцент приходит только при наведении.
+	   Так тег перестаёт спорить с текстом заметки. */
+	--tag-background: var(--bg-sunken);
+	--tag-background-hover: var(--accent-soft);
+	--tag-color: var(--fg-muted);
+	--tag-color-hover: var(--fg);
+	--tag-size: var(--font-smallest);
+
+	/* Embeds. Ядро ставит слева акцентную полоску в 2px — запрещённый в
+	   системе приём. Встроенная заметка становится карточкой: тонкая рамка по
+	   кругу, тот же радиус, что у callout и блока кода. */
+	--embed-border-start: 1px solid var(--border);
+	--embed-border-end: 1px solid var(--border);
+	--embed-border-top: 1px solid var(--border);
+	--embed-border-bottom: 1px solid var(--border);
+	--embed-padding: var(--gap-md);
+}
+
+/* Цитата: паддинг и радиус. Переменных для них в ядре нет, а без них заливка
+   прилипает к тексту. Значения — из .md-content blockquote системы. */
+
+.markdown-rendered blockquote {
+	padding: var(--gap-md) var(--gap-lg);
+	border-radius: var(--radius-md);
+}
+
+/* Живой просмотр рисует цитату построчно: каждая строка — свой элемент со
+   своей заливкой. Вертикальный паддинг разорвал бы блок на полосы, а радиус
+   дал бы лесенку, поэтому здесь только горизонтальный отступ. */
+
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote {
+	padding-inline: var(--gap-lg);
+}
+
+/* Инлайновый код. В системе это отдельная роль: подложка --code-inline-bg
+   темнее блока, цвет — акцентный, радиус меньше. Ядро же отдаёт инлайну ту же
+   --code-background, что и блоку.
+
+   Порядок правил существенный. Ядро сбрасывает фон и рамку у pre code
+   селектором на класс выше нашего, а цвет не сбрасывает — его возвращаем
+   сами, иначе весь блок кода уедет в акцент. */
+
+.markdown-rendered code,
+.cm-s-obsidian span.cm-inline-code {
+	color: var(--accent);
+	background-color: var(--code-inline-bg);
+	border-radius: var(--radius-sm);
+}
+
+.markdown-rendered pre code,
+.cm-s-obsidian .HyperMD-codeblock span.cm-inline-code {
+	color: var(--code-normal);
+	background-color: inherit;
+	border-radius: 0;
+}
+
+/* Ссылки в прозе с отбивкой подчёркивания от базовой линии: без неё черта
+   режет выносные элементы кириллицы. При наведении подчёркивание утолщается —
+   второй различитель к цвету, как в системе. */
+
+.markdown-rendered a,
+.cm-s-obsidian .cm-link,
+.cm-s-obsidian .cm-hmd-internal-link {
+	text-underline-offset: 2px;
+}
+
+.markdown-rendered a:hover,
+.cm-s-obsidian .cm-link:hover,
+.cm-s-obsidian .cm-hmd-internal-link:hover {
+	text-decoration-thickness: 2px;
+}
