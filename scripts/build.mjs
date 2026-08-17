@@ -43,6 +43,7 @@ const tokens = JSON.parse(readFileSync(ds('tokens/tokens.json'), 'utf8'));
    не написан вовсе. Молча пропущенных генераторов здесь не бывает: если
    модуль не грузится, сборка падает. */
 const GENERATORS = [
+	['gen-fonts.mjs', 'src/01-fonts.css'],
 	['gen-palette.mjs', 'src/02-palette.css'],
 	['gen-mapping.mjs', 'src/03-mapping.css'],
 ];
