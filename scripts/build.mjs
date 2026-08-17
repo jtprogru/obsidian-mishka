@@ -54,11 +54,21 @@ const ctx = { tokens, root, r, ds };
 
 mkdirSync(r('src'), { recursive: true });
 
+/* Генератор может отдать ещё и кусок документации. Таблица типов callout
+   живёт ровно в одном месте — в генераторе, — и в README приезжает оттуда же,
+   что и CSS: разъехаться они могут только вместе. Место в README размечено
+   парой маркеров, всё между ними принадлежит генератору. */
+const docs = new Map();
+
 for (const [script, out] of GENERATORS) {
 	const mod = await import(new URL(script, import.meta.url).href);
 	const css = await mod.default(ctx);
 	writeFileSync(r(out), css.endsWith('\n') ? css : css + '\n');
 	console.log(`  ${out.padEnd(22)} ${(Buffer.byteLength(css) / 1024).toFixed(1)} КБ`);
+
+	if (typeof mod.docs === 'function') {
+		docs.set(script.replace(/^gen-|\.mjs$/g, ''), await mod.docs(ctx));
+	}
 }
 
 /* ── 3. Склейка ────────────────────────────────────────────────────────── */
@@ -81,6 +91,26 @@ const css = parts
 	.join('\n');
 
 writeFileSync(r('theme.css'), css);
+
+/* ── 4. Документация ───────────────────────────────────────────────────── */
+
+if (docs.size) {
+	let readme = readFileSync(r('README.md'), 'utf8');
+
+	for (const [name, body] of docs) {
+		const open = `<!-- ${name}:start -->`;
+		const close = `<!-- ${name}:end -->`;
+		const re = new RegExp(`${open}[\\s\\S]*?${close}`);
+		if (!re.test(readme)) {
+			console.error(`✗ в README.md нет маркеров ${open} … ${close}`);
+			process.exit(1);
+		}
+		readme = readme.replace(re, `${open}\n\n${body.trim()}\n\n${close}`);
+	}
+
+	writeFileSync(r('README.md'), readme);
+	console.log(`  README.md              ${docs.size} блок(ов) из генераторов`);
+}
 
 const size = Buffer.byteLength(css);
 console.log(`\n✓ theme.css — ${parts.length} кусков, ${(size / 1024).toFixed(0)} КБ`);

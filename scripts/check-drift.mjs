@@ -25,7 +25,9 @@ const git = (...args) =>
 
 /* Грязное дерево до сборки — это не дрейф, а незакоммиченная работа. Отличить
    одно от другого постфактум нельзя, поэтому запоминаем состояние заранее. */
-const TRACKED = ['theme.css', 'src'];
+/* README.md здесь потому, что таблица типов callout в нём тоже генерируется:
+   правка руками должна ловиться так же, как правка theme.css. */
+const TRACKED = ['theme.css', 'src', 'README.md'];
 const dirtyBefore = git('status', '--porcelain', '--', ...TRACKED).trim();
 
 execFileSync(process.execPath, [resolve(root, 'scripts/build.mjs')], {

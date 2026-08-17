@@ -13,31 +13,43 @@
 
 const TAB = '\t';
 
-/* Тип ядра → роль системы. Слева канонические имена --callout-*, в скобках —
-   алиасы, которые ядро на них сводит. */
+/*
+ * Тип ядра → роль системы.
+ *
+ * canonical — имя переменной --callout-*, её и красим.
+ * names     — все написания, которые ядро на эту переменную сводит.
+ * icon      — идентификатор иконки в ядре; тема его не меняет, но в
+ *             документации он нужен: иконка и есть второй различитель к цвету,
+ *             и без неё правило системы «цвет не единственный носитель смысла»
+ *             у callout не выполняется.
+ *
+ * Один источник на CSS и на таблицу в README: разъехаться они могут только
+ * вместе, и это проверяет check-drift.mjs.
+ */
 const TYPES = [
-	['default', 'c-note', 'без типа'],
-	['info', 'c-note', 'info'],
-	['todo', 'c-note', 'todo'],
-	['summary', 'accent', 'summary, abstract, tldr'],
-	['tip', 'c-tip', 'tip, hint'],
-	['success', 'c-tip', 'success, check, done'],
-	['important', 'c-important', 'important'],
-	['question', 'c-important', 'question, help, faq'],
-	['example', 'c-important', 'example'],
-	['warning', 'c-warn', 'warning, caution, attention'],
-	['fail', 'c-danger', 'fail, failure, missing'],
-	['error', 'c-danger', 'error, danger'],
-	['bug', 'c-danger', 'bug'],
-	['quote', 'fg-muted', 'quote, cite'],
+	{ canonical: 'default', role: 'c-note', tone: 'Lavender', icon: 'lucide-pencil', names: ['note'], note: 'и любой незнакомый ядру тип' },
+	{ canonical: 'info', role: 'c-note', tone: 'Lavender', icon: 'lucide-info', names: ['info'] },
+	{ canonical: 'todo', role: 'c-note', tone: 'Lavender', icon: 'lucide-check-circle-2', names: ['todo'] },
+	{ canonical: 'summary', role: 'accent', tone: 'Sapphire', icon: 'lucide-clipboard-list', names: ['summary', 'abstract', 'tldr'] },
+	{ canonical: 'tip', role: 'c-tip', tone: 'Green', icon: 'lucide-flame', names: ['tip', 'hint'] },
+	{ canonical: 'success', role: 'c-tip', tone: 'Green', icon: 'lucide-check', names: ['success', 'check', 'done'] },
+	{ canonical: 'important', role: 'c-important', tone: 'Mauve', icon: 'lucide-flame', names: ['important'] },
+	{ canonical: 'question', role: 'c-important', tone: 'Mauve', icon: 'help-circle', names: ['question', 'help', 'faq'] },
+	{ canonical: 'example', role: 'c-important', tone: 'Mauve', icon: 'lucide-list', names: ['example'] },
+	{ canonical: 'warning', role: 'c-warn', tone: 'Peach', icon: 'lucide-alert-triangle', names: ['warning', 'caution', 'attention'] },
+	{ canonical: 'fail', role: 'c-danger', tone: 'Red', icon: 'lucide-x', names: ['fail', 'failure', 'missing'] },
+	{ canonical: 'error', role: 'c-danger', tone: 'Red', icon: 'lucide-zap', names: ['error', 'danger'] },
+	{ canonical: 'bug', role: 'c-danger', tone: 'Red', icon: 'lucide-bug', names: ['bug'] },
+	{ canonical: 'quote', role: 'fg-muted', tone: 'приглушённый текст', icon: 'quote-glyph', names: ['quote', 'cite'] },
 ];
 
 export default function build() {
-	const width = Math.max(...TYPES.map(([t]) => t.length));
+	const width = Math.max(...TYPES.map((t) => t.canonical.length));
 
-	const rows = TYPES.map(([type, role, aliases]) => {
-		const pad = ' '.repeat(width - type.length);
-		return `${TAB}--callout-${type}:${pad} var(--${role});${' '.repeat(Math.max(1, 18 - role.length))}/* ${aliases} */`;
+	const rows = TYPES.map(({ canonical, role, names, note }) => {
+		const pad = ' '.repeat(width - canonical.length);
+		const aliases = names.join(', ') + (note ? `, ${note}` : '');
+		return `${TAB}--callout-${canonical}:${pad} var(--${role});${' '.repeat(Math.max(1, 18 - role.length))}/* ${aliases} */`;
 	});
 
 	return `/* СГЕНЕРИРОВАНО scripts/gen-callouts.mjs — не править руками.
@@ -94,4 +106,29 @@ ${TAB}--callout-title-color: var(--fg);
 ${TAB}background-color: color-mix(in oklch, var(--callout-color) 10%, var(--bg-elev));
 }
 `;
+}
+
+/*
+ * Фрагмент README между маркерами callouts. Пишется тем же прогоном сборки,
+ * что и CSS, из той же таблицы TYPES: документация, разъезжающаяся с кодом,
+ * хуже отсутствующей, а проверить разъезд иначе нечем.
+ */
+export function docs() {
+	const rows = TYPES.map(({ canonical, role, tone, icon, names, note }) => {
+		const spellings = names.map((n) => `\`[!${n}]\``).join(', ') + (note ? ` ${note}` : '');
+		return `| ${spellings} | \`--callout-${canonical}\` | \`--${role}\` | ${tone} | \`${icon}\` |`;
+	});
+
+	const total = TYPES.reduce((n, t) => n + t.names.length, 0);
+	const semantic = new Set(TYPES.map((t) => t.role).filter((r) => r.startsWith('c-'))).size;
+
+	return `${total} написаний ядро сводит к ${TYPES.length} переменным, а тема — к ${semantic} семантическим ролям системы. Двум типам роли не досталось, и это намеренно: \`summary\` красится акцентом, потому что подводка к тексту и есть его тема, а \`quote\` берёт \`--fg-muted\` и цвета не несёт вовсе.
+
+Восьмёрка \`--color-*\` в раскладке не участвует: пойди callouts через неё, \`note\` уехал бы в Blue, а система на этом месте требует Lavender ровно потому, что Blue сливается с Sapphire.
+
+| Написание | Переменная ядра | Роль системы | Тон catppuccin | Иконка |
+|---|---|---|---|---|
+${rows.join('\n')}
+
+Тип несут иконка и рамка, а не только цвет: заголовок у всех типов набран \`--fg\`, как \`.callout__title\` в системе. Это же правило системы «цвет не единственный носитель смысла», и оно снимает старую проблему яркой Latte, где тон типа как текст не держит AA.`;
 }

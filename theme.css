@@ -907,7 +907,7 @@ body {
 
 .theme-light,
 .theme-dark {
-	--callout-default:   var(--c-note);            /* без типа */
+	--callout-default:   var(--c-note);            /* note, и любой незнакомый ядру тип */
 	--callout-info:      var(--c-note);            /* info */
 	--callout-todo:      var(--c-note);            /* todo */
 	--callout-summary:   var(--accent);            /* summary, abstract, tldr */
