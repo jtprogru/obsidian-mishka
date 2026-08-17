@@ -1,9 +1,13 @@
 {
-    "name": "sample-obsidian-theme",
-    "version": "1.0.0",
+	"name": "obsidian-mishka",
+	"version": "0.1.0",
+	"description": "Тема Obsidian «Мишка на сервере», выведенная из дизайн-системы mishka-ds",
+	"private": true,
+	"type": "module",
 	"scripts": {
-		"version": "node version-bump.mjs && git add manifest.json versions.json",
-		"lint": "stylelint \"**/*.css\""
+		"build": "node scripts/build.mjs",
+		"lint": "stylelint \"src/**/*.css\" \"theme.css\"",
+		"version": "node version-bump.mjs && git add manifest.json versions.json"
 	},
 	"devDependencies": {
 		"stylelint": "^17.0.0",

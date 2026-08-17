@@ -1,5 +1,5 @@
 # vscode
-.vscode 
+.vscode
 
 # Intellij
 *.iml
@@ -13,3 +13,12 @@ node_modules
 
 # Exclude macOS Finder (System Explorer) View States
 .DS_Store
+
+# Тестовое хранилище: конфиг и заметки коммитятся, состояние сессии и
+# развёрнутая копия темы — нет. Тема туда кладётся через make deploy.
+vault/.obsidian/themes/
+vault/.obsidian/workspace.json
+vault/.obsidian/workspace-mobile.json
+vault/.obsidian/graph.json
+vault/.obsidian/plugins/
+vault/.trash/

@@ -11,6 +11,19 @@ jobs:
 
     steps:
       - uses: actions/checkout@v7
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 26.x
+          cache: 'npm'
+
+      - run: npm ci
+
+      # Релиз собирается заново из токенов: в артефакт не должно попасть
+      # ничего, чего нет в src/ и submodule.
+      - run: make check
 
       - name: Create release
         env:
