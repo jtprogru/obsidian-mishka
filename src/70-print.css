@@ -1,0 +1,75 @@
+/* ============================================================================
+   Печать и экспорт в PDF.
+
+   Значения ролей на бумаге приезжают из print-web.css системы через
+   02-palette.css. Здесь только правила: что прячем, что не рвём по страницам,
+   какие поля у листа.
+
+   Экран и бумага различаются не «немного», а принципиально: у бумаги нет
+   тёмной темы, нет наведения, нет ссылок, которые можно нажать. Поэтому слой
+   не адаптирует экранные стили, а перекрывает их.
+
+   Obsidian сам подставляет --font-print вместо --font-text внутри @media print,
+   а в цепочке --font-print уже стоит --font-text-theme. Значит на бумагу
+   уезжает та же IBM Plex Sans, что и на экран, — отдельного правила не нужно.
+   ============================================================================ */
+
+@media print {
+	/* Оболочка на бумаге бессмысленна: рибон, панели, вкладки и статусбар
+	   ведут туда, куда с распечатки не попасть. Obsidian печатает только
+	   активную заметку, но плагины подмешивают своё — прячем явно. */
+	.workspace-ribbon,
+	.workspace-tabs .workspace-tab-header-container,
+	.status-bar,
+	.titlebar,
+	.view-header,
+	.mod-left-split,
+	.mod-right-split {
+		display: none;
+	}
+
+	/* Колонка на бумаге не нужна: ширину задаёт @page с полями, а
+	   --file-line-width оставил бы на листе пустое поле справа. */
+	.markdown-preview-view,
+	.markdown-rendered,
+	.markdown-preview-sizer {
+		max-width: 100%;
+	}
+
+	/* Адрес внешней ссылки печатаем: иначе «см. здесь» превращается в тупик.
+	   Внутренние ссылки не раскрываем — на бумаге они ничего не значат. */
+	.markdown-rendered a.external-link::after {
+		content: " (" attr(href) ")";
+		font-size: var(--print-fs-xs);
+		color: var(--fg-subtle);
+		word-break: break-all;
+	}
+
+	/* Заголовок не должен висеть последней строкой на странице, а блок кода,
+	   таблица или callout — разрываться пополам. */
+	.markdown-rendered h1,
+	.markdown-rendered h2,
+	.markdown-rendered h3,
+	.markdown-rendered h4 {
+		break-after: avoid;
+	}
+
+	.markdown-rendered p,
+	.markdown-rendered li,
+	.markdown-rendered blockquote {
+		orphans: 3;
+		widows: 3;
+	}
+
+	.markdown-rendered pre,
+	.markdown-rendered table,
+	.markdown-rendered figure,
+	.markdown-rendered .callout {
+		break-inside: avoid;
+	}
+
+	@page {
+		size: A4;
+		margin: var(--print-margin);
+	}
+}

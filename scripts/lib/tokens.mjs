@@ -30,6 +30,30 @@ const decls = (body) =>
 	[...body.matchAll(/^\s*--([\w-]+):\s*([^;]+);/gm)].map((m) => [m[1], m[2].trim()]);
 
 /**
+ * Печатный слой системы: роли цвета из print-web.css и шкала --print-* из
+ * tokens.css.
+ *
+ * На бумаге тема всегда одна, поэтому блок в print-web.css объявлен разом на
+ * все три селектора темы — разбирать по темам нечего.
+ *
+ * Из шкалы берётся только страничная часть. --card-* — это визитка 90×50 мм,
+ * к экспорту заметки в PDF отношения не имеющая.
+ */
+export const printTokens = (tokensCssPath, printCssPath) => {
+	const printBody = atRule(strip(readFileSync(printCssPath, 'utf8')), '@media print');
+	const m = printBody.match(/:root[^{]*\{([^}]*)\}/);
+	if (!m) throw new Error('в print-web.css нет блока ролей внутри @media print');
+
+	const tokensCss = strip(readFileSync(tokensCssPath, 'utf8'));
+	const scale = decls(tokensCss).filter(
+		([name]) => name.startsWith('print-') && !name.startsWith('card-'),
+	);
+	if (!scale.length) throw new Error('в tokens.css нет шкалы --print-*');
+
+	return { roles: decls(m[1]), scale };
+};
+
+/**
  * Блок повышенного контраста из tokens.css.
  *
  * @returns {{ light: {decls: [string, string][], accent: string},

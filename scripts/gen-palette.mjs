@@ -18,7 +18,7 @@
  */
 
 import { hexToHsl, modernizeColors, rgbTriplet } from './lib/color.mjs';
-import { highContrastTokens } from './lib/tokens.mjs';
+import { highContrastTokens, printTokens } from './lib/tokens.mjs';
 
 const TAB = '\t';
 
@@ -111,6 +111,7 @@ const highContrast = (hc) =>
 
 export default function build({ tokens, ds }) {
 	const hc = highContrastTokens(ds('src/styles/tokens.css'));
+	const print = printTokens(ds('src/styles/tokens.css'), ds('src/styles/print-web.css'));
 	const out = [];
 
 	out.push(`/* СГЕНЕРИРОВАНО scripts/gen-palette.mjs — не править руками.
@@ -145,6 +146,7 @@ body {`);
 	scale('Радиусы', Object.entries(tokens.radius));
 	scale('Ширина колонки текста', [['content-width', tokens.size['content-width']]]);
 	scale('Движение', Object.entries(tokens.motion));
+	scale('Бумага — единственное место системы с физическими единицами', print.scale);
 
 	out[out.length - 1] = '}';
 
@@ -213,6 +215,25 @@ ${highContrast(hc)}
 }`);
 
 	/* ── Шкала --color-base-* ───────────────────────────────────────────── */
+
+	/* ── Печать ─────────────────────────────────────────────────────────── */
+
+	out.push(`
+/* Бумага. Роли проброшены из print-web.css системы как есть.
+
+   На бумаге тема всегда одна: насыщенный фон полосит на лазерной печати и
+   просвечивает на обороте, а Sapphire, читаемый на экране, выцветает. Блок в
+   системе объявлен разом на все селекторы темы, поэтому и здесь один.
+
+   --accent тут задан значением, а не алиасом на цепочку ядра: блок стоит
+   ниже, специфичность та же, значит он и выигрывает. Тройки h/s/l не нужно —
+   на печати акцент никуда дальше не разворачивается. */
+
+@media print {
+${TAB}.theme-light,
+${TAB}.theme-dark {`);
+	for (const [name, value] of print.roles) out.push(TAB + decl(name, value));
+	out.push(`${TAB}}\n}`);
 
 	out.push(`
 /* Шкала --color-base-*. Семантику Obsidian она не несёт — та задана ролями в

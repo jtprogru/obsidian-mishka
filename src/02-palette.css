@@ -53,6 +53,17 @@ body {
 	/* Движение */
 	--transition: 0.18s ease;
 	--transition-slow: 0.36s ease;
+
+	/* Бумага — единственное место системы с физическими единицами */
+	--print-page-width: 210mm;
+	--print-page-height: 297mm;
+	--print-margin: 18mm;
+	--print-fs-xs: 8pt;
+	--print-fs-sm: 9pt;
+	--print-fs-base: 10.5pt;
+	--print-fs-lg: 13pt;
+	--print-fs-title: 18pt;
+	--print-lh-base: 1.45;
 }
 
 /* Роли цвета · light · catppuccin Latte */
@@ -282,6 +293,39 @@ body {
 		--accent-h: 195.8824;
 		--accent-s: 61.8182%;
 		--accent-l: 78.4314%;
+	}
+}
+
+/* Бумага. Роли проброшены из print-web.css системы как есть.
+
+   На бумаге тема всегда одна: насыщенный фон полосит на лазерной печати и
+   просвечивает на обороте, а Sapphire, читаемый на экране, выцветает. Блок в
+   системе объявлен разом на все селекторы темы, поэтому и здесь один.
+
+   --accent тут задан значением, а не алиасом на цепочку ядра: блок стоит
+   ниже, специфичность та же, значит он и выигрывает. Тройки h/s/l не нужно —
+   на печати акцент никуда дальше не разворачивается. */
+
+@media print {
+	.theme-light,
+	.theme-dark {
+		--bg: #fff;
+		--bg-elev: #fff;
+		--bg-sunken: #fff;
+		--fg: #000;
+		--fg-muted: #333;
+		--fg-subtle: #555;
+		--border: #999;
+		--border-strong: #666;
+		--accent: #0b5566;
+		--accent-400: #0b5566;
+		--accent-700: #0b5566;
+		--code-bg: #f2f2f2;
+		--code-inline-bg: #f2f2f2;
+		--code-fg: #000;
+		--shadow-sm: none;
+		--shadow-md: none;
+		--shadow-lg: none;
 	}
 }
 
