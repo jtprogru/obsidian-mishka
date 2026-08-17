@@ -42,7 +42,10 @@ const tokens = JSON.parse(readFileSync(ds('tokens/tokens.json'), 'utf8'));
    фазам; файла в списке нет — значит этот кусок темы ещё пишется руками или
    не написан вовсе. Молча пропущенных генераторов здесь не бывает: если
    модуль не грузится, сборка падает. */
-const GENERATORS = [];
+const GENERATORS = [
+	['gen-palette.mjs', 'src/02-palette.css'],
+	['gen-mapping.mjs', 'src/03-mapping.css'],
+];
 
 const ctx = { tokens, root, r, ds };
 

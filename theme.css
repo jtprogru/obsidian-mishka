@@ -34,3 +34,523 @@
 
    Ни один шрифт не продаётся отдельно; тема распространяется бесплатно.
    ---------------------------------------------------------------------------- */
+
+/* ════ src/02-palette.css ══════════════════════════════════════════════════════ */
+
+/* СГЕНЕРИРОВАНО scripts/gen-palette.mjs — не править руками.
+
+   Источник: vendor/mishka-ds/tokens/tokens.json и src/styles/tokens.css.
+   Меняешь цвет, кегль, отступ или радиус — правишь дизайн-систему и
+   запускаешь make build. Правка значений здесь — возврат к состоянию, из
+   которого ушли. */
+
+/* Шкалы системы. Тем не касаются, поэтому объявлены один раз на body.
+
+   --fs-display-* сюда не приезжают: система разрешает их только слайдам.
+   --container-width и --header-height — тоже: в Obsidian нет ни контейнера
+   страницы, ни шапки сайта. */
+body {
+	/* Гарнитуры */
+	--font-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	--font-serif: Georgia, "Times New Roman", serif;
+	--font-mono: "Iosevka", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+	/* Кегли — Major Third 1.250 */
+	--fs-xs: 0.75rem;
+	--fs-sm: 0.875rem;
+	--fs-base: 1rem;
+	--fs-md: 1.125rem;
+	--fs-lg: 1.25rem;
+	--fs-xl: 1.5rem;
+	--fs-2xl: 1.875rem;
+	--fs-3xl: 2.25rem;
+	--fs-4xl: 3rem;
+
+	/* Межстрочный */
+	--lh-tight: 1.2;
+	--lh-snug: 1.4;
+	--lh-base: 1.65;
+	--lh-loose: 1.8;
+
+	/* Отступы */
+	--gap-xs: 0.25rem;
+	--gap-sm: 0.5rem;
+	--gap-md: 1rem;
+	--gap-lg: 1.5rem;
+	--gap-xl: 2.5rem;
+	--gap-2xl: 4rem;
+
+	/* Радиусы */
+	--radius-sm: 4px;
+	--radius-md: 8px;
+	--radius-lg: 12px;
+	--radius-pill: 999px;
+
+	/* Ширина колонки текста */
+	--content-width: 720px;
+
+	/* Движение */
+	--transition: 0.18s ease;
+	--transition-slow: 0.36s ease;
+}
+
+/* Роли цвета · light · catppuccin Latte */
+
+.theme-light {
+	/* Поверхности */
+	--bg: #eff1f5;
+	--bg-elev: #e6e9ef;
+	--bg-sunken: #dce0e8;
+
+	/* Текст */
+	--fg: #4c4f69;
+	--fg-muted: #5c5f77;
+	--fg-subtle: #64677d;
+
+	/* Акцентная шкала — брендовая, пикер её не двигает */
+	--accent-300: #7dc4e4;
+	--accent-400: #209fb5;
+	--accent-600: #1c8a9d;
+	--accent-700: #0b7285;
+	--accent-soft: #bcdff0;
+
+	/* Границы */
+	--border: #ccd0da;
+	--border-strong: #bcc0cc;
+
+	/* Код */
+	--code-bg: #e6e9ef;
+	--code-fg: #4c4f69;
+	--code-inline-bg: #dce0e8;
+
+	/* Семантика callouts: подложка и текст разведены */
+	--c-note: #7287fd;
+	--c-tip: #40a02b;
+	--c-important: #8839ef;
+	--c-warn: #fe640b;
+	--c-danger: #d20f39;
+	--c-note-text: #3d47c9;
+	--c-tip-text: #2e7320;
+	--c-important-text: #7a30d6;
+	--c-warn-text: #9a3f0a;
+	--c-danger-text: #bd0d33;
+
+	/* Категориальная палитра */
+	--chart-1: #209fb5;
+	--chart-2: #c35c60;
+	--chart-3: #589b4b;
+	--chart-4: #8a6ec6;
+	--chart-5: #7287fd;
+	--chart-6: #df8e1d;
+	--chart-7: #179299;
+	--chart-8: #df7e56;
+
+	/* Подсветка синтаксиса */
+	--syn-keyword: #8738ee;
+	--syn-string: #0e7a00;
+	--syn-number: #c72d00;
+	--syn-constant: #c72d00;
+	--syn-comment: #656879;
+	--syn-function: #155dec;
+	--syn-type: #a15500;
+	--syn-variable: #4c4f69;
+	--syn-operator: #006eab;
+	--syn-meta: #00757c;
+
+	/* Тени */
+	--shadow-sm: 0 1px 2px rgb(0 0 0 / 4%);
+	--shadow-md: 0 2px 8px rgb(0 0 0 / 6%);
+	--shadow-lg: 0 8px 24px rgb(0 0 0 / 8%);
+}
+
+/* Роли цвета · dark · catppuccin Macchiato */
+
+.theme-dark {
+	/* Поверхности */
+	--bg: #24273a;
+	--bg-elev: #1e2030;
+	--bg-sunken: #181926;
+
+	/* Текст */
+	--fg: #cad3f5;
+	--fg-muted: #a5adcb;
+	--fg-subtle: #939ab7;
+
+	/* Акцентная шкала — брендовая, пикер её не двигает */
+	--accent-300: #7dc4e4;
+	--accent-400: #7dc4e4;
+	--accent-600: #209fb5;
+	--accent-700: #0b7285;
+	--accent-soft: #2d4f5c;
+
+	/* Границы */
+	--border: #363a4f;
+	--border-strong: #494d64;
+
+	/* Код */
+	--code-bg: #1e2030;
+	--code-fg: #cad3f5;
+	--code-inline-bg: #181926;
+
+	/* Семантика callouts: подложка и текст разведены */
+	--c-note: #b7bdf8;
+	--c-tip: #a6da95;
+	--c-important: #c6a0f6;
+	--c-warn: #f5a97f;
+	--c-danger: #ed8796;
+	--c-note-text: #b7bdf8;
+	--c-tip-text: #a6da95;
+	--c-important-text: #c6a0f6;
+	--c-warn-text: #f5a97f;
+	--c-danger-text: #ed8796;
+
+	/* Категориальная палитра */
+	--chart-1: #7dc4e4;
+	--chart-2: #ed8796;
+	--chart-3: #a6da95;
+	--chart-4: #c6a0f6;
+	--chart-5: #b7bdf8;
+	--chart-6: #eed49f;
+	--chart-7: #8bd5ca;
+	--chart-8: #f5a97f;
+
+	/* Подсветка синтаксиса */
+	--syn-keyword: #c6a0f6;
+	--syn-string: #a6da95;
+	--syn-number: #f5a97f;
+	--syn-constant: #f5a97f;
+	--syn-comment: #8087a2;
+	--syn-function: #8aadf4;
+	--syn-type: #eed49f;
+	--syn-variable: #cad3f5;
+	--syn-operator: #91d7e3;
+	--syn-meta: #8bd5ca;
+
+	/* Тени */
+	--shadow-sm: 0 1px 2px rgb(0 0 0 / 25%);
+	--shadow-md: 0 2px 8px rgb(0 0 0 / 35%);
+	--shadow-lg: 0 8px 24px rgb(0 0 0 / 45%);
+}
+
+/* Акцент. --accent-h/s/l объявляются по темам раздельно: в системе акцент
+   разный, --accent-700 #0b7285 на светлой и --accent-300 #7dc4e4 на тёмной.
+   Ядро выводит из тройки --color-accent, --color-accent-1 и --color-accent-2
+   внутри каждого блока темы, поэтому раздельное объявление работает без
+   обходных путей.
+
+   Пикер акцента в «Оформлении» продолжает работать: если цвет там выбран,
+   Obsidian пишет ту же тройку инлайном в body, и инлайн выигрывает у любого
+   нашего селектора без !important. Если не выбран — вызывает
+   removeProperty(), и в силу вступает объявление ниже. Настройки читают
+   вычисленное значение обратно, так что дефолтом в пикере покажется Sapphire. */
+
+.theme-light {
+	--accent-h: 189.3443;
+	--accent-s: 84.7222%;
+	--accent-l: 28.2353%;
+}
+
+.theme-dark {
+	--accent-h: 198.6408;
+	--accent-s: 65.6051%;
+	--accent-l: 69.2157%;
+}
+
+/* Роль --accent системы — алиас на цепочку ядра, а не на токен. Так один
+   словарь остаётся один: и наши правила, и правила Obsidian берут акцент из
+   одного места, и пикер двигает оба. На настройках по умолчанию тройка выше
+   возвращает ровно токенный Sapphire — это проверяет check-accent.mjs.
+
+   --accent-hover считается от акцента, а не берётся из токена, по той же
+   причине. Смешивание с --mono-100 уводит от фона в обеих темах: на светлой
+   темнее, на тёмной светлее — ровно так же, как --accent-hover в системе. */
+
+.theme-light,
+.theme-dark {
+	--accent: var(--color-accent);
+	--accent-hover: color-mix(in oklch, var(--color-accent) 84%, var(--mono-100));
+}
+
+/* Повышенный контраст. Блок проброшен из tokens.css как есть — срабатывает
+   автоматически при системной настройке. */
+
+@media (prefers-contrast: more) {
+	.theme-light {
+		--bg: #fff;
+		--bg-elev: #fff;
+		--bg-sunken: #f0f0f0;
+		--fg: #000;
+		--fg-muted: #1a1a1a;
+		--fg-subtle: #404040;
+		--accent-300: #4bb3cc;
+		--accent-400: #0b7285;
+		--accent-600: #065666;
+		--accent-700: #043b47;
+		--accent-soft: #bcdff0;
+		--border: #999;
+		--border-strong: #444;
+		--code-bg: #000;
+		--code-fg: #fff;
+		--code-inline-bg: #e8e8e8;
+
+		/* Акцент повышенного контраста — той же тройкой, что и обычный. */
+		--accent-h: 190;
+		--accent-s: 88.8889%;
+		--accent-l: 21.1765%;
+	}
+
+	.theme-dark {
+		--bg: #000;
+		--bg-elev: #000;
+		--bg-sunken: #1a1a1a;
+		--fg: #fff;
+		--fg-muted: #e6e6e6;
+		--fg-subtle: #bfbfbf;
+		--accent-300: #a6d8ea;
+		--accent-400: #7dc4e4;
+		--accent-600: #209fb5;
+		--accent-700: #0b7285;
+		--accent-soft: #2d4f5c;
+		--border: #808080;
+		--border-strong: #ccc;
+		--code-bg: #000;
+		--code-fg: #fff;
+		--code-inline-bg: #1a1a1a;
+
+		/* Акцент повышенного контраста — той же тройкой, что и обычный. */
+		--accent-h: 195.8824;
+		--accent-s: 61.8182%;
+		--accent-l: 78.4314%;
+	}
+}
+
+/* Шкала --color-base-*. Семантику Obsidian она не несёт — та задана ролями в
+   03-mapping.css. Шкала нужна правилам ядра, которые ссылаются на ступени
+   напрямую: --canvas-dot-pattern, --graph-line, --prompt-border-color.
+   Заполнена монотонной лесенкой от --bg к --fg, одной формулой на обе темы. */
+
+.theme-light,
+.theme-dark {
+	--color-base-00: var(--bg);
+	--color-base-05: color-mix(in oklch, var(--fg) 3%, var(--bg));
+	--color-base-10: color-mix(in oklch, var(--fg) 6%, var(--bg));
+	--color-base-20: color-mix(in oklch, var(--fg) 9%, var(--bg));
+	--color-base-25: color-mix(in oklch, var(--fg) 12%, var(--bg));
+	--color-base-30: var(--border);
+	--color-base-35: color-mix(in oklch, var(--border), var(--border-strong));
+	--color-base-40: var(--border-strong);
+	--color-base-50: color-mix(in oklch, var(--border-strong), var(--fg-subtle));
+	--color-base-60: var(--fg-subtle);
+	--color-base-70: var(--fg-muted);
+	--color-base-100: var(--fg);
+}
+
+/* Восемь цветов ядра. Идут под canvas, статусные модификаторы, теги и graph. */
+
+.theme-light,
+.theme-dark {
+	--color-red: var(--c-danger);
+	--color-orange: var(--c-warn);
+	--color-yellow: var(--chart-6);
+	--color-green: var(--c-tip);
+	--color-cyan: var(--chart-7);
+	--color-blue: var(--chart-1);
+	--color-purple: var(--c-important);
+	--color-pink: var(--c-note);
+}
+
+/* Тройки --color-*-rgb. В ядре помечены deprecated, но их читают плагины, и
+   без них чужой плагин рисует дырку. var() в тройку не подставишь — только
+   литералом, поэтому по темам раздельно. */
+
+.theme-light {
+	--color-red-rgb: 210, 15, 57;
+	--color-orange-rgb: 254, 100, 11;
+	--color-yellow-rgb: 223, 142, 29;
+	--color-green-rgb: 64, 160, 43;
+	--color-cyan-rgb: 23, 146, 153;
+	--color-blue-rgb: 32, 159, 181;
+	--color-purple-rgb: 136, 57, 239;
+	--color-pink-rgb: 114, 135, 253;
+}
+
+.theme-dark {
+	--color-red-rgb: 237, 135, 150;
+	--color-orange-rgb: 245, 169, 127;
+	--color-yellow-rgb: 238, 212, 159;
+	--color-green-rgb: 166, 218, 149;
+	--color-cyan-rgb: 139, 213, 202;
+	--color-blue-rgb: 125, 196, 228;
+	--color-purple-rgb: 198, 160, 246;
+	--color-pink-rgb: 183, 189, 248;
+}
+
+/* ════ src/03-mapping.css ══════════════════════════════════════════════════════ */
+
+/* СГЕНЕРИРОВАНО scripts/gen-mapping.mjs — не править руками.
+
+   Роли дизайн-системы в семантические переменные Obsidian. Источник —
+   vendor/mishka-ds/tokens/tokens.json. */
+
+.theme-light,
+.theme-dark {
+	/* Поверхности.
+	   Прямой укладки в --color-base-* здесь нет намеренно: в светлой теме
+	   шкала Obsidian идёт от светлого к тёмному, в тёмной наоборот, а в
+	   системе возвышение в тёмной теме уходит вниз. Семантика поэтому
+	   садится на роли, а шкала живёт отдельно (см. 02-palette.css). */
+	--background-primary: var(--bg);
+	--background-primary-alt: var(--bg-elev);
+	--background-secondary: var(--bg-elev);
+	--background-secondary-alt: var(--bg-sunken);
+	--background-modifier-border: var(--border);
+	--background-modifier-border-hover: var(--border-strong);
+	--background-modifier-border-focus: var(--accent);
+	--background-modifier-form-field: var(--bg-elev);
+	--background-modifier-error: var(--c-danger);
+	--background-modifier-error-hover: var(--c-danger);
+	--background-modifier-warning: var(--c-warn);
+	--background-modifier-warning-hover: var(--c-warn);
+	--background-modifier-success: var(--c-tip);
+
+	/* Текст.
+	   Статусные цвета берут ступень --c-*-text, а не --c-*: яркие тона Latte
+	   держат подложку, но как текст валят AA. В тёмной теме обе ступени
+	   совпадают, разделение там холостое и ничего не стоит. */
+	--text-normal: var(--fg);
+	--text-muted: var(--fg-muted);
+	--text-faint: var(--fg-subtle);
+	--text-error: var(--c-danger-text);
+	--text-warning: var(--c-warn-text);
+	--text-success: var(--c-tip-text);
+	--caret-color: var(--accent);
+
+	/* Выделение и подсветка.
+	   В ядре подсветка зашита как жёлтая rgba(255, 208, 0, .4) — цвет мимо
+	   палитры. Заменяется на --accent-soft: ровно то, чем система красит
+	   <mark>.
+
+	   Выделение при этом НЕ --accent-soft, хотя подложка та же по смыслу:
+	   выделять приходится и уже подсвеченный текст, и раскрашенный код.
+	   Полупрозрачный акцент ложится поверх обоих и оставляет видимой разницу,
+	   непрозрачный — нет. Форма взята у ядра, крепость — своя. */
+	--text-highlight-bg: var(--accent-soft);
+	--text-selection: color-mix(in oklch, var(--accent) 25%, transparent);
+
+	/* Акцент.
+	   Ядро выводит --text-accent и --interactive-accent из --color-accent-1 и
+	   --color-accent-2 — ступеней, которые всегда светлее акцента. На светлой
+	   теме это уводит ссылку ниже AA. Сажаем и то и другое на --accent, а
+	   наведение — на --accent-hover, который уходит от фона в обе стороны.
+
+	   Пикер акцента продолжает работать: обе роли — алиасы на цепочку ядра,
+	   а её двигает --accent-h/s/l, который пикер пишет инлайном в body. */
+	--text-accent: var(--accent);
+	--text-accent-hover: var(--accent-hover);
+	--interactive-accent: var(--accent);
+	--interactive-accent-hover: var(--accent-hover);
+	--text-on-accent: var(--bg);
+	--text-on-accent-inverted: var(--fg);
+
+	/* Тени.
+	   У Obsidian три ступени, у системы тоже три, и это взаимно однозначно. */
+	--shadow-xs: var(--shadow-sm);
+	--shadow-s: var(--shadow-md);
+	--shadow-l: var(--shadow-lg);
+
+	/* Гарнитуры.
+	   Цепочка ядра — var(--font-text-override), var(--font-text-theme),
+	   var(--font-default). Выбор шрифта пользователем в «Оформлении» стоит
+	   левее темы и выигрывает у неё. Это правильное поведение, и оно же
+	   означает, что соответствие системе гарантируется на дефолтных
+	   настройках. */
+	--font-text-theme: var(--font-sans);
+	--font-interface-theme: var(--font-sans);
+	--font-monospace-theme: var(--font-mono);
+
+	/* Ритм и колонка.
+	   700px в ядре против 720px в системе — двадцать пикселей, но это ширина
+	   колонки для длинного текста, и менять её значит менять читаемость. */
+	--line-height-normal: var(--lh-base);
+	--line-height-tight: var(--lh-snug);
+	--p-spacing: var(--gap-md);
+	--heading-spacing: var(--gap-xl);
+	--file-line-width: var(--content-width);
+
+	/* Радиусы.
+	   Шкала ядра s/m/l ложится на sm/md/lg системы один в один. --radius-xl
+	   ядра остаётся своим: в системе такой ступени нет. */
+	--radius-s: var(--radius-sm);
+	--radius-m: var(--radius-md);
+	--radius-l: var(--radius-lg);
+	--input-radius: var(--radius-sm);
+	--tag-radius: var(--radius-pill);
+
+	/* Линейка.
+	   В системе hr — 1px в цвете границы. В ядре 2px, и на светлой теме это
+	   читается как рамка, а не как пауза. */
+	--hr-color: var(--border);
+	--hr-thickness: 1px;
+
+	/* Graph.
+	   Правило системы «цвет не единственный носитель смысла» здесь
+	   выполняется само: у узлов есть подписи. */
+	--graph-text: var(--fg-muted);
+	--graph-line: var(--border);
+	--graph-node: var(--fg-muted);
+	--graph-node-focused: var(--accent);
+	--graph-node-tag: var(--chart-6);
+	--graph-node-attachment: var(--chart-7);
+	--graph-node-unresolved: var(--border-strong);
+
+	/* Заголовки.
+	   Кегли — в em, а не в rem. --font-text-size пользователь меняет в
+	   настройках, и em сохраняет пропорции шкалы Major Third при любом
+	   кегле. Ступени те же, что в base.css системы.
+
+	   Вес 700 у всех шести: у IBM Plex Sans статичные 400 и 700, а ядро
+	   раздаёт 620-680 под вариативный шрифт — их браузер округлит или
+	   синтезирует. Цвет — --fg, у h6 приглушённый, как в системе. */
+	--h1-size: 2.25em;
+	--h2-size: 1.875em;
+	--h3-size: 1.5em;
+	--h4-size: 1.25em;
+	--h5-size: 1.125em;
+	--h6-size: 1em;
+
+	/* Вес */
+	--h1-weight: var(--font-bold);
+	--h2-weight: var(--font-bold);
+	--h3-weight: var(--font-bold);
+	--h4-weight: var(--font-bold);
+	--h5-weight: var(--font-bold);
+	--h6-weight: var(--font-bold);
+
+	/* Межстрочный */
+	--h1-line-height: var(--lh-tight);
+	--h2-line-height: var(--lh-tight);
+	--h3-line-height: var(--lh-tight);
+	--h4-line-height: var(--lh-tight);
+	--h5-line-height: var(--lh-tight);
+	--h6-line-height: var(--lh-tight);
+
+	/* Цвет */
+	--h1-color: var(--fg);
+	--h2-color: var(--fg);
+	--h3-color: var(--fg);
+	--h4-color: var(--fg);
+	--h5-color: var(--fg);
+	--h6-color: var(--fg-muted);
+}
+
+/* Заголовок заметки. В системе --page-title-size поднимается с --fs-3xl до
+   --fs-4xl на экране шире 768px: заголовок страницы там несёт вес, которого
+   у заголовка внутри текста нет. Заголовок заметки в Obsidian — ровно тот же
+   элемент, поэтому ступень та же. Заголовки внутри заметки не двигаются. */
+
+@media (width >= 768px) {
+	.theme-light,
+	.theme-dark {
+		--inline-title-size: 3em;
+	}
+}

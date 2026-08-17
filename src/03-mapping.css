@@ -1,0 +1,167 @@
+/* СГЕНЕРИРОВАНО scripts/gen-mapping.mjs — не править руками.
+
+   Роли дизайн-системы в семантические переменные Obsidian. Источник —
+   vendor/mishka-ds/tokens/tokens.json. */
+
+.theme-light,
+.theme-dark {
+	/* Поверхности.
+	   Прямой укладки в --color-base-* здесь нет намеренно: в светлой теме
+	   шкала Obsidian идёт от светлого к тёмному, в тёмной наоборот, а в
+	   системе возвышение в тёмной теме уходит вниз. Семантика поэтому
+	   садится на роли, а шкала живёт отдельно (см. 02-palette.css). */
+	--background-primary: var(--bg);
+	--background-primary-alt: var(--bg-elev);
+	--background-secondary: var(--bg-elev);
+	--background-secondary-alt: var(--bg-sunken);
+	--background-modifier-border: var(--border);
+	--background-modifier-border-hover: var(--border-strong);
+	--background-modifier-border-focus: var(--accent);
+	--background-modifier-form-field: var(--bg-elev);
+	--background-modifier-error: var(--c-danger);
+	--background-modifier-error-hover: var(--c-danger);
+	--background-modifier-warning: var(--c-warn);
+	--background-modifier-warning-hover: var(--c-warn);
+	--background-modifier-success: var(--c-tip);
+
+	/* Текст.
+	   Статусные цвета берут ступень --c-*-text, а не --c-*: яркие тона Latte
+	   держат подложку, но как текст валят AA. В тёмной теме обе ступени
+	   совпадают, разделение там холостое и ничего не стоит. */
+	--text-normal: var(--fg);
+	--text-muted: var(--fg-muted);
+	--text-faint: var(--fg-subtle);
+	--text-error: var(--c-danger-text);
+	--text-warning: var(--c-warn-text);
+	--text-success: var(--c-tip-text);
+	--caret-color: var(--accent);
+
+	/* Выделение и подсветка.
+	   В ядре подсветка зашита как жёлтая rgba(255, 208, 0, .4) — цвет мимо
+	   палитры. Заменяется на --accent-soft: ровно то, чем система красит
+	   <mark>.
+
+	   Выделение при этом НЕ --accent-soft, хотя подложка та же по смыслу:
+	   выделять приходится и уже подсвеченный текст, и раскрашенный код.
+	   Полупрозрачный акцент ложится поверх обоих и оставляет видимой разницу,
+	   непрозрачный — нет. Форма взята у ядра, крепость — своя. */
+	--text-highlight-bg: var(--accent-soft);
+	--text-selection: color-mix(in oklch, var(--accent) 25%, transparent);
+
+	/* Акцент.
+	   Ядро выводит --text-accent и --interactive-accent из --color-accent-1 и
+	   --color-accent-2 — ступеней, которые всегда светлее акцента. На светлой
+	   теме это уводит ссылку ниже AA. Сажаем и то и другое на --accent, а
+	   наведение — на --accent-hover, который уходит от фона в обе стороны.
+
+	   Пикер акцента продолжает работать: обе роли — алиасы на цепочку ядра,
+	   а её двигает --accent-h/s/l, который пикер пишет инлайном в body. */
+	--text-accent: var(--accent);
+	--text-accent-hover: var(--accent-hover);
+	--interactive-accent: var(--accent);
+	--interactive-accent-hover: var(--accent-hover);
+	--text-on-accent: var(--bg);
+	--text-on-accent-inverted: var(--fg);
+
+	/* Тени.
+	   У Obsidian три ступени, у системы тоже три, и это взаимно однозначно. */
+	--shadow-xs: var(--shadow-sm);
+	--shadow-s: var(--shadow-md);
+	--shadow-l: var(--shadow-lg);
+
+	/* Гарнитуры.
+	   Цепочка ядра — var(--font-text-override), var(--font-text-theme),
+	   var(--font-default). Выбор шрифта пользователем в «Оформлении» стоит
+	   левее темы и выигрывает у неё. Это правильное поведение, и оно же
+	   означает, что соответствие системе гарантируется на дефолтных
+	   настройках. */
+	--font-text-theme: var(--font-sans);
+	--font-interface-theme: var(--font-sans);
+	--font-monospace-theme: var(--font-mono);
+
+	/* Ритм и колонка.
+	   700px в ядре против 720px в системе — двадцать пикселей, но это ширина
+	   колонки для длинного текста, и менять её значит менять читаемость. */
+	--line-height-normal: var(--lh-base);
+	--line-height-tight: var(--lh-snug);
+	--p-spacing: var(--gap-md);
+	--heading-spacing: var(--gap-xl);
+	--file-line-width: var(--content-width);
+
+	/* Радиусы.
+	   Шкала ядра s/m/l ложится на sm/md/lg системы один в один. --radius-xl
+	   ядра остаётся своим: в системе такой ступени нет. */
+	--radius-s: var(--radius-sm);
+	--radius-m: var(--radius-md);
+	--radius-l: var(--radius-lg);
+	--input-radius: var(--radius-sm);
+	--tag-radius: var(--radius-pill);
+
+	/* Линейка.
+	   В системе hr — 1px в цвете границы. В ядре 2px, и на светлой теме это
+	   читается как рамка, а не как пауза. */
+	--hr-color: var(--border);
+	--hr-thickness: 1px;
+
+	/* Graph.
+	   Правило системы «цвет не единственный носитель смысла» здесь
+	   выполняется само: у узлов есть подписи. */
+	--graph-text: var(--fg-muted);
+	--graph-line: var(--border);
+	--graph-node: var(--fg-muted);
+	--graph-node-focused: var(--accent);
+	--graph-node-tag: var(--chart-6);
+	--graph-node-attachment: var(--chart-7);
+	--graph-node-unresolved: var(--border-strong);
+
+	/* Заголовки.
+	   Кегли — в em, а не в rem. --font-text-size пользователь меняет в
+	   настройках, и em сохраняет пропорции шкалы Major Third при любом
+	   кегле. Ступени те же, что в base.css системы.
+
+	   Вес 700 у всех шести: у IBM Plex Sans статичные 400 и 700, а ядро
+	   раздаёт 620-680 под вариативный шрифт — их браузер округлит или
+	   синтезирует. Цвет — --fg, у h6 приглушённый, как в системе. */
+	--h1-size: 2.25em;
+	--h2-size: 1.875em;
+	--h3-size: 1.5em;
+	--h4-size: 1.25em;
+	--h5-size: 1.125em;
+	--h6-size: 1em;
+
+	/* Вес */
+	--h1-weight: var(--font-bold);
+	--h2-weight: var(--font-bold);
+	--h3-weight: var(--font-bold);
+	--h4-weight: var(--font-bold);
+	--h5-weight: var(--font-bold);
+	--h6-weight: var(--font-bold);
+
+	/* Межстрочный */
+	--h1-line-height: var(--lh-tight);
+	--h2-line-height: var(--lh-tight);
+	--h3-line-height: var(--lh-tight);
+	--h4-line-height: var(--lh-tight);
+	--h5-line-height: var(--lh-tight);
+	--h6-line-height: var(--lh-tight);
+
+	/* Цвет */
+	--h1-color: var(--fg);
+	--h2-color: var(--fg);
+	--h3-color: var(--fg);
+	--h4-color: var(--fg);
+	--h5-color: var(--fg);
+	--h6-color: var(--fg-muted);
+}
+
+/* Заголовок заметки. В системе --page-title-size поднимается с --fs-3xl до
+   --fs-4xl на экране шире 768px: заголовок страницы там несёт вес, которого
+   у заголовка внутри текста нет. Заголовок заметки в Obsidian — ровно тот же
+   элемент, поэтому ступень та же. Заголовки внутри заметки не двигаются. */
+
+@media (width >= 768px) {
+	.theme-light,
+	.theme-dark {
+		--inline-title-size: 3em;
+	}
+}
