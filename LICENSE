@@ -1,5 +1,48 @@
-Copyright (C) 2020-2026 by Dynalist Inc.
+# Лицензии obsidian-mishka
 
-Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted.
+Copyright © 2026 Михаил Савин (Mikhail Savin), https://jtprog.ru
 
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+    Required Notice: Copyright © 2026 Михаил Савин (https://jtprog.ru)
+
+Тема выведена из дизайн-системы [`mishka-ds`](https://github.com/jtprogru/mishka-ds) и наследует её раскладку лицензий. Единой лицензии на репозиторий нет: код и стили можно брать под ограничениями, бренд нельзя брать вообще, шрифты чужие. Если файл не попадает ни в один раздел ниже — считается, что он под разделом 1.
+
+## 1. Код и стили — PolyForm Noncommercial 1.0.0
+
+Полный текст: [`LICENSES/PolyForm-Noncommercial-1.0.0.md`](LICENSES/PolyForm-Noncommercial-1.0.0.md), он же на https://polyformproject.org/licenses/noncommercial/1.0.0
+
+Покрывает: `src/`, `scripts/`, `Makefile`, `package.json`, `manifest.json`, `vault/` и собранный `theme.css` — кроме вшитых в него сабсетов шрифтов, они по разделу 3.
+
+Коротко, без замены текста лицензии: этим можно пользоваться, менять и распространять для любой некоммерческой цели — личные проекты, учёба, исследования, некоммерческие организации, госучреждения. Любое коммерческое использование требует отдельной письменной лицензии от автора. Гарантий никаких.
+
+При распространении копии или производной работы вы обязаны передать дальше и текст лицензии, и строку `Required Notice` выше.
+
+## 2. Бренд — все права защищены
+
+К этому разделу относятся названия и адреса идентичности: «Мишка на сервере», «Mishka» как имя этой темы, «mishka-ds» как имя дизайн-системы, `jtprog.ru`, `savinmi.ru`, `@jtprogru`.
+
+Знака и маскота в теме нет — только имя. Форкнуть тему ради работы с кодом можно при условии, что имя в `manifest.json` и упоминания идентичности заменены на свои. Медведь остаётся моим.
+
+## 3. Шрифты — SIL Open Font License 1.1
+
+В `theme.css` вшиты сабсеты двух чужих гарнитур. Права принадлежат их авторам, условия — OFL 1.1, тексты лежат в `LICENSES/`:
+
+- IBM Plex Sans, © 2017 IBM Corp. with Reserved Font Name "Plex" — [`LICENSES/LICENSE-ibm-plex-sans.txt`](LICENSES/LICENSE-ibm-plex-sans.txt);
+- Iosevka, © 2015-2024 Renzhi Li (aka. Belleve Invis) — [`LICENSES/LICENSE-iosevka.txt`](LICENSES/LICENSE-iosevka.txt).
+
+Сабсеты приезжают из `mishka-ds` как есть: нарезаны по unicode-range, контуры и имена гарнитур не менялись. Разделы 1 и 2 на них не распространяются: OFL 1.1 остаётся OFL 1.1 при любом дальнейшем распространении, включая распространение внутри `theme.css`. Уведомление об этом продублировано в шапке самого `theme.css` — файл ходит по рукам отдельно от репозитория.
+
+## Как получить разрешение
+
+Коммерческая лицензия на код или разрешение на бренд — письмом на jtprogru@gmail.com или в https://t.me/jtprogru. Спрашивать нормально, ответ бывает «да».
+
+---
+
+## English summary
+
+This repository is **not** under a single license.
+
+- **Code and styles** — [PolyForm Noncommercial 1.0.0](LICENSES/PolyForm-Noncommercial-1.0.0.md). Free for any noncommercial purpose; commercial use requires a separate written license.
+- **Brand** — all rights reserved. The names «Мишка на сервере» / Mishka / mishka-ds may not be reused without prior written permission. Fork the code, rename the theme.
+- **Fonts** embedded in `theme.css` — third-party, SIL OFL 1.1, see `LICENSES/`.
+
+Contact: jtprogru@gmail.com
