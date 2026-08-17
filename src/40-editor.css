@@ -84,25 +84,27 @@
 	padding-inline: var(--gap-lg);
 }
 
-/* Инлайновый код. В системе это отдельная роль: подложка --code-inline-bg
-   темнее блока, цвет — акцентный, радиус меньше. Ядро же отдаёт инлайну ту же
-   --code-background, что и блоку.
+/* Инлайновый код. Акцентный цвет и радиус поменьше — это система.
+
+   А вот подложка --code-inline-bg из системы сюда не переносится, хотя
+   напрашивается. Пара «акцент на --code-inline-bg» даёт на светлой теме
+   4.22:1 и AA не проходит: check-contrast.mjs ловит её первой же. Оставляем
+   акцент — он и есть узнаваемая часть, — а тинт двигаем на ступень светлее,
+   к --code-bg, где пара проходит. Инлайн от абзаца всё равно отделён рамкой.
 
    Порядок правил существенный. Ядро сбрасывает фон и рамку у pre code
    селектором на класс выше нашего, а цвет не сбрасывает — его возвращаем
-   сами, иначе весь блок кода уедет в акцент. */
+   сами, иначе весь блок кода уехал бы в акцент. */
 
 .markdown-rendered code,
 .cm-s-obsidian span.cm-inline-code {
 	color: var(--accent);
-	background-color: var(--code-inline-bg);
 	border-radius: var(--radius-sm);
 }
 
 .markdown-rendered pre code,
 .cm-s-obsidian .HyperMD-codeblock span.cm-inline-code {
 	color: var(--code-normal);
-	background-color: inherit;
 	border-radius: 0;
 }
 

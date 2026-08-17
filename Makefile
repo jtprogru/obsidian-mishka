@@ -12,7 +12,7 @@ NODE := node
 VAULT      ?= vault
 THEME_NAME := Mishka
 
-.PHONY: help install vendor build check lint accent drift deploy deploy-vault clean distclean
+.PHONY: help install vendor build check lint contrast accent drift deploy deploy-vault clean distclean
 
 help: ## Список команд
 	@grep -hE '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) \
@@ -28,12 +28,15 @@ vendor: ## Подтянуть submodule с дизайн-системой
 # файлу, а не по токенам, иначе проверяется не то, что увидит пользователь.
 build: ## Собрать theme.css из src/ и токенов, прогнать проверки
 	$(NODE) scripts/build.mjs
-	@$(MAKE) --no-print-directory lint accent
+	@$(MAKE) --no-print-directory lint contrast accent
 
-check: lint accent drift ## Все проверки, включая дрейф собранного
+check: lint contrast accent drift ## Все проверки, включая дрейф собранного
 
 lint: ## stylelint по src/ и по собранному theme.css
 	$(NPM) run lint
+
+contrast: ## WCAG-контрасты пар Obsidian по собранному theme.css
+	$(NODE) scripts/check-contrast.mjs
 
 accent: ## Обратный ход hsl(h,s,l) сходится с токеном акцента
 	$(NODE) scripts/check-accent.mjs
