@@ -46,6 +46,7 @@ const GENERATORS = [
 	['gen-fonts.mjs', 'src/01-fonts.css'],
 	['gen-palette.mjs', 'src/02-palette.css'],
 	['gen-mapping.mjs', 'src/03-mapping.css'],
+	['gen-code.mjs', 'src/04-code.css'],
 ];
 
 const ctx = { tokens, root, r, ds };

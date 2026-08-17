@@ -1,0 +1,104 @@
+/* СГЕНЕРИРОВАНО scripts/gen-code.mjs — не править руками.
+
+   Подсветка кода на ролях --syn-* дизайн-системы. Профиль один: тему
+   переключают сами токены, светлой и тёмной таблицы не нужно.
+
+   Порог AA на подложке кода держится в токенах и проверяется
+   scripts/check-contrast.mjs — здесь только раскладка ролей. */
+
+/* Одиннадцать ролей ядра на десять ролей системы. Дальше Obsidian развесит их
+   сам: и на .token.* режима чтения, и на .cm-* режима правки. */
+
+.theme-light,
+.theme-dark {
+	--code-background: var(--code-bg);
+	--code-normal: var(--syn-variable);
+	--code-comment: var(--syn-comment);
+	--code-function: var(--syn-function);
+	--code-keyword: var(--syn-keyword);
+	--code-operator: var(--syn-operator);
+	--code-property: var(--syn-meta);
+	--code-string: var(--syn-string);
+	--code-tag: var(--syn-type);
+	--code-value: var(--syn-number);
+	--code-important: var(--syn-constant);
+	--code-punctuation: var(--fg-muted);
+}
+
+/* Добивка: классы, которые ядро отправило в соседнюю роль. Раскладка — из
+   ROLES генератора Chroma в системе, чтобы заметка и пост подсвечивались
+   одинаково. */
+
+/* атрибуты, декораторы, свойства, регулярные выражения */
+.token.property,
+.token.attr-name,
+.token.regex,
+.cm-meta,
+.cm-attribute,
+.cm-property {
+	color: var(--syn-meta);
+}
+
+/* переменные и всё, что печатается цветом текста */
+.token.variable,
+.token.parameter,
+.cm-variable,
+.cm-variable-2,
+.cm-variable-3 {
+	color: var(--syn-variable);
+}
+
+/* типы, классы, пространства имён, исключения */
+.token.class-name,
+.token.namespace,
+.cm-type,
+.cm-def {
+	color: var(--syn-type);
+}
+
+/* константы и escape-последовательности */
+.token.constant,
+.token.boolean,
+.token.symbol,
+.token.entity,
+.cm-atom {
+	color: var(--syn-constant);
+}
+
+/* функции и встроенные имена */
+.token.builtin,
+.cm-builtin {
+	color: var(--syn-function);
+}
+
+/* ключевые слова и теги разметки */
+.token.tag,
+.token.atrule,
+.token.selector {
+	color: var(--syn-keyword);
+}
+
+/* удалённые строки диффа */
+.token.deleted {
+	color: var(--c-danger-text);
+}
+
+/* добавленные строки диффа */
+.token.inserted {
+	color: var(--c-tip-text);
+}
+
+/* Начертание — второй различитель к цвету, правило системы. Комментарии
+   курсивом: курсив Iosevka нарезан ровно ради них. Операторы полужирным. */
+
+.token.comment,
+.token.prolog,
+.token.cdata,
+.cm-comment {
+	font-style: italic;
+}
+
+.token.operator,
+.cm-operator {
+	font-weight: var(--font-bold);
+}
