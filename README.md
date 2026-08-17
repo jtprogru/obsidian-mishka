@@ -4,6 +4,10 @@
 
 Палитра — catppuccin: Latte на свету, Macchiato в темноте. Акцент один, Sapphire.
 
+![Тёмная тема: вложенные callouts и подсветка Go в режиме чтения](screenshots/dark.png)
+
+![Светлая тема: тот же экран на Latte](screenshots/light.png)
+
 ## Установка
 
 Пока тема не в каталоге сообщества — вручную:
