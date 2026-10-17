@@ -1,10 +1,11 @@
 name: Check
 
+# push только в main: ветки с PR проверяет pull_request, и без этого
+# ограничения матрица в каждом PR гонялась дважды.
 on:
   push:
-    branches: ['**']
+    branches: [main]
   pull_request:
-    branches: ['**']
 
 jobs:
   check:
