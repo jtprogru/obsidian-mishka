@@ -6,8 +6,7 @@
 	"type": "module",
 	"scripts": {
 		"build": "node scripts/build.mjs",
-		"lint": "stylelint \"src/**/*.css\" \"theme.css\"",
-		"version": "node version-bump.mjs && git add manifest.json versions.json"
+		"lint": "stylelint \"src/**/*.css\" \"theme.css\""
 	},
 	"devDependencies": {
 		"stylelint": "^17.16.0",
