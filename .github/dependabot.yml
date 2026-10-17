@@ -1,10 +1,27 @@
 version: 2
 updates:
+  # Одна группа на экосистему: иначе каждое обновление открывает свой PR,
+  # и они конфликтуют друг с другом по package-lock.json.
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
+    groups:
+      npm:
+        applies-to: version-updates
+        patterns: ["*"]
+      npm-security:
+        applies-to: security-updates
+        patterns: ["*"]
+
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
+    groups:
+      actions:
+        patterns: ["*"]
+
+  # gitsubmodule здесь намеренно нет: Dependabot поднимет mishka-ds без
+  # пересборки темы, и check-drift сделает каждый такой PR красным.
+  # Submodule обновляется руками, см. README.
