@@ -9,7 +9,7 @@
 		"lint": "stylelint \"src/**/*.css\" \"theme.css\""
 	},
 	"devDependencies": {
-		"stylelint": "^17.16.0",
+		"stylelint": "^18.0.0",
 		"stylelint-config-obsidianmd": "^0.1.0"
 	}
 }
